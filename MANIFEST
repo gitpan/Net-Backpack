@@ -1,7 +1,9 @@
 Changes
-Makefile.PL
+Build.PL
 MANIFEST
 README
 t/Net-Backpack.t
 lib/Net/Backpack.pm
 META.yml                                 Module meta-data (added by MakeMaker)
+Makefile.PL
+SIGNATURE    Added here by Module::Build

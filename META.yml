@@ -1,13 +1,19 @@
-# http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         Net-Backpack
-version:      0.01
-version_from: lib/Net/Backpack.pm
-installdirs:  site
+---
+name: Net-Backpack
+version: 0.02
+author:
+  - Dave Cross E<lt>dave@dave@dave.org.ukE<gt>
+abstract: Perl extension for interfacing with Backpack
+license: perl
 requires:
-    HTTP::Request:                 0
-    LWP::UserAgent:                0
-    XML::Simple:                   0
-
-distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.17
+  HTTP::Request: 0
+  LWP::UserAgent: 0
+  XML::Simple: 0
+  perl: 5.6.0
+build_requires:
+  Test::More: 0
+provides:
+  Net::Backpack:
+    file: lib/Net/Backpack.pm
+    version: 0.02
+generated_by: Module::Build version 0.261
