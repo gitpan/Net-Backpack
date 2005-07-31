@@ -1,4 +1,4 @@
-# $Id: Backpack.pm,v 1.3 2005/05/24 19:41:04 dave Exp $
+# $Id: Backpack.pm,v 1.7 2005/07/31 16:00:48 dave Exp $
 
 =head1 NAME
 
@@ -81,7 +81,7 @@ use LWP::UserAgent;
 use HTTP::Request;
 use XML::Simple;
 
-our $VERSION = '0.02';
+our $VERSION = sprintf "%d.%02d", '$Revision: 1.7 $ ' =~ /(\d+)\.(\d+)/;
 
 my %data = (
 	    'list_all_pages' =>
@@ -139,6 +139,220 @@ my %data = (
   <token>[S:token]</token>
 </request>'
 	    },
+	    'link_page' =>
+	    {
+	     url => '/ws/page/[P:to_page]/link',
+	     req => '<request>
+  <token>[S:token]</token>
+  <linked_page_id>[P:link_page]</linked_page_id>
+</request>'
+	    },
+	    'unlink_page' =>
+	    {
+	     url => '/ws/page/[P:from_page]/link',
+	     req => '<request>
+  <token>[S:token]</token>
+  <linked_page_id>[P:link_page]</linked_page_id>
+</request>'
+	    },
+	    'share_people' =>
+	    {
+	     url => '/ws/page/[P:id]/share',
+	     req => '<request>
+  <token>[S:token]</token>
+  <email_addresses>
+    [P:people]
+  </email_addresses>
+</request>'
+	    },
+	    'make_page_public' =>
+	    {
+	     url => '/ws/page/[P:id]/share',
+	     req => '<request>
+  <token>[S:token]</token>
+  <page>
+    <public>[P:public]</public>
+  </page>
+</request>'
+	    },
+	    'unshare_friend_page' =>
+	    {
+	     url => '/ws/page/[P:id]/unshare_friend_page',
+	     req => '<request>
+  <token>[S:token]</token>
+</request>'
+	    },
+	    'email_page' =>
+	    {
+	     url => '/ws/page/[P:id]/email',
+	     req => '<request>
+  <token>[S:token]</token>
+</request>'
+	    },
+		'list_all_items' =>
+	    {
+	     url => '/ws/page/[P:page_id]/items/list',
+	     req => '<request>
+  <token>[S:token]</token> 
+</request>'
+	    },
+		'create_item' =>
+	    {
+	     url => '/ws/page/[P:page_id]/items/add',
+	     req => '<request>
+  <token>[S:token]</token> 
+  <item>
+    <content>[P:item]</content>
+  </item>
+</request>'
+	    },
+		'update_item' =>
+	    {
+	     url => '/ws/page/[P:page_id]/items/update/[P:id]',
+	     req => '<request>
+  <token>[S:token]</token> 
+  <item>
+    <content>[P:item]</content>
+  </item>
+</request>'
+	    },
+		'toggle_item' =>
+	    {
+	     url => '/ws/page/[P:page_id]/items/toggle/[P:id]',
+	     req => '<request>
+  <token>[S:token]</token> 
+</request>'
+	    },
+		'destroy_item' =>
+	    {
+	     url => '/ws/page/[P:page_id]/items/destroy/[P:id]',
+	     req => '<request>
+  <token>[S:token]</token> 
+</request>'
+	    },
+		'move_item' =>
+	    {
+	     url => '/ws/page/[P:page_id]/items/move/[P:id]',
+	     req => '<request>
+  <token>[S:token]</token> 
+  <direction>[P:direction]</direction>
+</request>'
+	    },
+		'list_all_notes' =>
+	    {
+	     url => '/ws/page/[P:page_id]/notes/list',
+	     req => '<request>
+  <token>[S:token]</token> 
+</request>'
+	    },
+		'create_note' =>
+	    {
+	     url => '/ws/page/[P:page_id]/notes/create',
+	     req => '<request>
+  <token>[S:token]</token> 
+  <note>
+    <title>[P:title]</title>
+    <body>[P:body]</body>
+  </note>
+</request>'
+	    },
+		'update_note' =>
+	    {
+	     url => '/ws/page/[P:page_id]/notes/update/[P:id]',
+	     req => '<request>
+  <token>[S:token]</token> 
+  <note>
+    <title>[P:title]</title>
+    <body>[P:body]</body>
+  </note>
+</request>'
+	    },
+		'destroy_note' =>
+	    {
+	     url => '/ws/page/[P:page_id]/notes/destroy/[P:id]',
+	     req => '<request>
+  <token>[S:token]</token> 
+</request>'
+	    },
+		'get_tag_pages' =>
+	    {
+	     url => '/ws/tags/[P:page_id]',
+	     req => '<request>
+  <token>[S:token]</token> 
+</request>'
+	    },
+		'set_page_tags' =>
+	    {
+	     url => '/ws/page/[P:page_id]/tags/tag',
+	     req => '<request>
+  <token>[S:token]</token> 
+  <tags>[P:tags]</tags>
+</request>'
+	    },
+		'upcoming_reminders' =>
+	    {
+	     url => '/ws/reminders',
+	     req => '<request>
+  <token>[S:token]</token> 
+</request>'
+	    },
+		'create_reminder' =>
+	    {
+	     url => '/ws/reminders/create',
+	     req => '<request>
+  <token>[S:token]</token>
+  <reminder>
+    <content>[P:content]</content>
+	<remind_at>[P:remind_at]</remind_at>
+  </reminder>
+</request>'
+	    },
+		'update_reminder' =>
+	    {
+	     url => '/ws/reminders/update/[P:id]',
+	     req => '<request>
+  <token>[S:token]</token> 
+  <reminder>
+    <content>[P:content]</content>
+	<remind_at>[P:remind_at]</remind_at>
+  </reminder>
+</request>'
+	    },
+		'destroy_reminder' =>
+	    {
+	     url => '/ws/reminders/destroy/[P:id]',
+	     req => '<request>
+  <token>[S:token]</token> 
+</request>'
+	    },
+		'list_all_emails' =>
+	    {
+	     url => '/ws/page/[P:page_id]/emails/list',
+	     req => '<request>
+  <token>[S:token]</token> 
+</request>'
+	    },
+		'show_email' =>
+	    {
+	     url => '/ws/page/[P:page_id]/emails/show/[P:id]',
+	     req => '<request>
+  <token>[S:token]</token> 
+</request>'
+	    },
+		'destroy_email' =>
+	    {
+	     url => '/ws/page/[P:page_id]/emails/destroy/[P:id]',
+	     req => '<request>
+  <token>[S:token]</token> 
+</request>'
+	    },
+		'export' =>
+	    {
+	     url => '/ws/account/export',
+	     req => '<request>
+  <token>[S:token]</token> 
+</request>'
+	    },
 	   );
 
 =head1 METHODS
@@ -172,7 +386,7 @@ sub new {
   return bless $self, $class;
 }
 
-=head2 $pages = list_all_pages([xml => 1]);
+=head2 $pages = $bp->list_all_pages([xml => 1]);
 
 Get a list of all of your Backpack pages. Returns a Perl data structure
 unless the C<xml> parameter is true, in which case it returns the raw
@@ -193,7 +407,8 @@ sub list_all_pages {
   return $self->_call(%params, req => $req);
 }
 
-=head2 $page = create_page(title => $title, [description => $desc, xml => 1]);
+=head2 $page = $bp->create_page(title => $title,
+                                [description => $desc, xml => 1]);
 
 Create a new Backpack page with the given title and (optional)
 description. Returns a Perl data structure unless the C<xml> parameter is
@@ -217,7 +432,7 @@ sub create_page {
   return $self->_call(%params, req => $req);
 }
 
-=head2 $rc = show_page(id => $id, [xml => 1]);
+=head2 $rc = $bp->show_page(id => $id, [xml => 1]);
 
 Get details of the Backpack page with the given id. Returns a Perl data
 structure unless the C<xml> parameter is true, in which case it returns the
@@ -241,7 +456,7 @@ sub show_page {
   return $self->_call(%params, req => $req);
 }
 
-=head2 $rc = delete_page(id => $id, [xml => 1]);
+=head2 $rc = $bp->delete_page(id => $id, [xml => 1]);
 
 Delete the Backpack page with the given id. Returns a Perl data structure
 unless the C<xml> parameter is true, in which case it returns the raw XML
@@ -265,7 +480,7 @@ sub destroy_page {
   return $self->_call(%params, req => $req);
 }
 
-=head2 $rc = update_title(id => $id, title => $title, [xml => 1]);
+=head2 $rc = $bp->update_title(id => $id, title => $title, [xml => 1]);
 
 Update the title of the given Backpack page. Returns a Perl data structure
 unless the C<xml> parameter is true, in which case it returns the raw XML 
@@ -290,7 +505,7 @@ sub update_title {
   return $self->_call(%params, req => $req);
 }
 
-=head2 $rc = update_body(id => $id, description => $desc, [xml => 1]);
+=head2 $rc = $bp->update_body(id => $id, description => $desc, [xml => 1]);
 
 Update the description of the given Backpack page. Returns a Perl data
 structure unless the C<xml> parameter is true, in which case it returns the
@@ -314,7 +529,7 @@ sub update_body {
   return $self->_call(%params, req => $req);
 }
 
-=head2 $page = duplicate_page(id => $id, [xml => 1]);
+=head2 $page = $bp->duplicate_page(id => $id, [xml => 1]);
 
 Create a duplicate of the given Backpack page. Returns a Perl data
 structure unless the C<xml> parameter is true, in which case it returns the
@@ -336,6 +551,670 @@ sub duplicate_page {
 
   return $self->_call(%params, req => $req);
 }
+
+=head2 $rc = $bp->link_page(link_page => $id1, to_page => $id2, [xml => 1]);
+
+Link one Backpack page to another. Returns a Perl data structure unless the
+C<xml> parameter is true, in which case it returns the raw XML as returned
+by the Backpack server.
+
+=cut
+
+sub link_page {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No id' unless $params{link_page} and $params{to_page};
+
+  my $req_data = $data{link_page};
+  my $url   = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+  my $req   = HTTP::Request->new(POST => $url);
+
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $rc = $bp->unlink_page(link_page => $id1, from_page => $id2,
+                              [xml => 1]);
+
+Unlink one Backpack page from another. Returns a Perl data structure unless
+the C<xml> parameter is true, in which case it returns the raw XML as returned
+by the Backpack server.
+
+=cut
+
+sub unlink_page {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No id' unless $params{link_page} and $params{from_page};
+
+  my $req_data = $data{unlink_page};
+  my $url   = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+  my $req   = HTTP::Request->new(POST => $url);
+
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $rc = $bp->share_page_with_people(id => $id, people => \@people,
+                                         [ xml => 1 ]);
+
+Share a given Backpack page with a list of other people. The parameter
+'people' is a list of email addresses of the people you wish to share the
+page with.
+
+=cut
+
+sub share_page {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No id' unless $params{id};
+  croak 'No people' unless scalar @{$params{people}};
+
+  $params{people} = join "\n", @{$params{people}};
+  my $req_data = $data{share_people};
+  my $url   = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+  my $req   = HTTP::Request->new(POST => $url);
+
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $rc = $bp->make_page_public(id => $id, public => $public,
+                                   [ xml => 1 ]);
+
+Make a given Backpage page public or private. The parameter 'public' is
+a boolean flag indicating whether the page should be made public or
+private
+
+=cut
+
+sub make_page_public {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No id' unless $params{id};
+  croak 'No public flag' unless exists $params{public};
+
+  $params{public} = !!$params{public};
+  my $req_data = $data{make_page_public};
+  my $url   = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+  my $req   = HTTP::Request->new(POST => $url);
+
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $rc = $bp->unshare_friend_page(id => $id, [ xml => 1 ]);
+
+Unshare yourself from a friend's page.
+
+=cut
+
+sub unshare_friend_page {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No id' unless $params{id};
+
+  my $req_data = $data{unshare_friend_page};
+  my $url   = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+  my $req   = HTTP::Request->new(POST => $url);
+
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+
+=head2 $rc = $bp->email_page(id => $id, [ xml => 1 ]);
+
+Email a page to yourself.
+
+=cut
+
+sub email_page {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No id' unless $params{id};
+
+  my $req_data = $data{email_page};
+  my $url   = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+  my $req   = HTTP::Request->new(POST => $url);
+
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $items = $bp->list_all_items(page_id => $page_id, [xml => 1]);
+
+Get a list of all of your Backpack checklist items. Returns a Perl data structure
+unless the C<xml> parameter is true, in which case it returns the raw
+XML as returned by the Backpack server.
+
+=cut
+
+sub list_all_items {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No id' unless $params{page_id};
+  
+  my $req_data = $data{list_all_items};
+  my $url      = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+
+  my $req = HTTP::Request->new('POST', $url);
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $item = $bp->create_item(page_id => $page_id, item => $item, [xml => 1]);
+
+Create a Backpack checklist item given a page id and some item content. 
+Returns a Perl data structure unless the C<xml> parameter is true, in which case 
+it returns the raw XML as returned by the Backpack server.
+
+=cut
+
+sub create_item {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No page id' unless $params{page_id};
+  croak 'No item content' unless $params{item};
+
+  my $req_data = $data{create_item};
+  my $url      = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+
+  my $req = HTTP::Request->new('POST', $url);
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $item = $bp->update_item(page_id => $page_id, item => $item, [xml => 1]
+                                id => $item_id);
+
+Updates a Backpack checklist item given a page id, item id, and new content. 
+Returns a Perl data structure unless the C<xml> parameter is true, in which
+case it returns the raw XML as returned by the Backpack server.
+
+=cut
+
+sub update_item {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No page id' unless $params{page_id};
+  croak 'No item id' unless $params{id};
+  croak 'No item content' unless $params{item};
+
+  my $req_data = $data{update_item};
+  my $url      = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+
+  my $req = HTTP::Request->new('POST', $url);
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $response = $bp->toggle_item(page_id => $page_id, id => $item_id,
+                                    [xml => 1]);
+
+Toggles a Backpack checklist item given a page id and an item id. 
+Returns a Perl data structure unless the C<xml> parameter is true, in which
+case it returns the raw XML as returned by the Backpack server.
+
+=cut
+
+sub toggle_item {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No page id' unless $params{page_id};
+  croak 'No item id' unless $params{id};
+
+  my $req_data = $data{toggle_item};
+  my $url      = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+
+  my $req = HTTP::Request->new('POST', $url);
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $response = $bp->destroy_item(page_id => $page_id, id => $item_id,
+                                     [xml => 1]);
+
+Destroys a Backpack checklist item given a page id and an item id. 
+Returns a Perl data structure unless the C<xml> parameter is true, in which
+case it returns the raw XML as returned by the Backpack server.
+
+=cut
+
+sub destroy_item {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No page id' unless $params{page_id};
+  croak 'No item id' unless $params{id};
+
+  my $req_data = $data{destroy_item};
+  my $url      = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+
+  my $req = HTTP::Request->new('POST', $url);
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $response = $bp->move_item(page_id => $page_id, id => $item_id, 
+                                  direction => $direction, [xml => 1]);
+
+Modifies the location in the list of a Backpack checklist item. Requires a 
+page id, a direction and an item id. Valid values for direction are
+"move_lower", "move_higher", "move_to_top", and "move_to_bottom". Returns a
+Perl data structure unless the C<xml> parameter is true, in which case it
+returns the raw XML as returned by the Backpack server.
+
+=cut
+
+sub move_item {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No page id' unless $params{page_id};
+  croak 'No item id' unless $params{id};
+  unless (exists $params{direction} &&
+          $params{direction} =~ /move_(lower|higher|to_top|to_bottom)/) {
+    croak 'No direction specified';
+  }
+
+  my $req_data = $data{move_item};
+  my $url      = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+  #print "url : $url\n";
+  #sleep 2;
+  my $req = HTTP::Request->new('POST', $url);
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $notes = $bp->list_all_notes(page_id => $page_id, [xml => 1]);
+
+Get a list of all of your Backpack notes. Returns a Perl data structure
+unless the C<xml> parameter is true, in which case it returns the raw
+XML as returned by the Backpack server.
+
+=cut
+
+sub list_all_notes {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No id' unless $params{page_id};
+  
+  my $req_data = $data{list_all_notes};
+  my $url      = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+
+  my $req = HTTP::Request->new('POST', $url);
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $note = $bp->create_note(page_id => $page_id, title => $title,
+                                body => $body, [xml => 1]);
+
+Create a Backpack note given a page id and some content. Title is required,
+body is optional. Returns a Perl data structure unless the C<xml> parameter
+is true, in which case it returns the raw XML as returned by the Backpack
+server.
+
+=cut
+
+sub create_note {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No page id' unless $params{page_id};
+  croak 'No note title' unless $params{title};
+
+  $params{body} ||= "";
+  
+  my $req_data = $data{create_note};
+  my $url      = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+
+  print "url: $url\n";
+
+  my $req = HTTP::Request->new('POST', $url);
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $note = $bp->update_note(page_id => $page_id, id => $note_id, [xml => 1]
+                                title => $title, body => $body);
+
+Updates a Backpack note given a page id, note id, and new content. 
+Returns a Perl data structure unless the C<xml> parameter is true, in which
+case it returns the raw XML as returned by the Backpack server.
+
+=cut
+
+sub update_note {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No page id' unless $params{page_id};
+  croak 'No note id' unless $params{id};
+
+  $params{title} ||= "";
+  $params{body} ||= "";
+    
+  my $req_data = $data{update_note};
+  my $url      = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+
+  my $req = HTTP::Request->new('POST', $url);
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $response = $bp->destroy_note(page_id => $page_id, id => $note_id,
+                                     [xml => 1]);
+
+Destroys a Backpack note given a page id and an note id. 
+Returns a Perl data structure unless the C<xml> parameter is true, in which
+case it returns the raw XML as returned by the Backpack server.
+
+=cut
+
+sub destroy_note {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No page id' unless $params{page_id};
+  croak 'No note id' unless $params{id};
+
+  my $req_data = $data{destroy_note};
+  my $url      = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+
+  my $req = HTTP::Request->new('POST', $url);
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $pages = $bp->get_tag_pages(page_id => $id, [ xml => 1 ]);
+
+Retrieve all the pages associated with a particular tag id. Returns a Perl
+data structure unless the C<xml> parameter is true, in which case it returns
+the raw XML as returned by the Backpack server.
+
+=cut
+
+sub get_tag_pages {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No page id' unless $params{page_id};
+ 
+  my $req_data = $data{get_tag_pages};
+  my $url   = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+  my $req   = HTTP::Request->new(POST => $url);
+
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $response = $bp->set_page_tags(page_id => $id, tags => \@tags,
+                                         [ xml => 1 ]);
+
+Set the tags for a given Backpack page. This method overwrites all tags for
+the page. An empty set of tags serves to remove all the tags for the page.
+Returns a Perl data structure unless the C<xml> parameter is true, in which
+case it returns the raw XML as returned by the Backpack server.
+
+This is currently returning true, and though it seems to create and submit a
+valid request, the tags are not being updated.
+
+=cut
+
+sub set_page_tags {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No page id' unless $params{page_id};
+
+  $params{tags} = join "\n", map { '"'.$_.'"' } @{$params{tags}};
+  my $req_data = $data{set_page_tags};
+
+  my $url   = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+
+  # print $url.$self->_expand($req_data->{req}, %params);
+
+  my $req   = HTTP::Request->new(POST => $url);
+
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $reminders = $bp->upcoming_reminders([ xml => 1 ]);
+
+Gets the upcoming Backpack reminders for an account, in the time zone
+specified per the account's settings.
+Returns a Perl data structure unless the C<xml> parameter is true, in which
+case it returns the raw XML as returned by the Backpack server.
+
+=cut
+
+sub upcoming_reminders {
+  my $self = shift;
+  my %params = @_;
+
+  my $req_data = $data{upcoming_reminders};
+
+  my $url   = $self->{base_url} . $self->_expand($req_data->{url});
+  my $req   = HTTP::Request->new(POST => $url);
+
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $reminder = $bp->create_reminder(content => $reminder, [xml => 1],
+                                        [remind_at => $remind_at]);
+
+Create a Backpack reminder given some reminder content. The content
+takes fuzzy date/times like "+30 Do foo and bar" to set the reminder for 30
+minutes from now. Optionally, specify a date in a relatively parseable date
+format and use the remind_at parameter instead.
+Returns a Perl data structure unless the C<xml> parameter is true, in which
+case it returns the raw XML as returned by the Backpack server.
+
+=cut
+
+sub create_reminder {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No reminder content' unless $params{content};
+
+  $params{remind_at} ||= "";
+  
+  my $req_data = $data{create_reminder};
+  my $url      = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+
+  my $req = HTTP::Request->new('POST', $url);
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $reminder = $bp->update_reminder(id => $reminder_id,
+                                        [content => $reminder], [xml => 1],
+                                        [remind_at => $remind_at);
+
+Update a Backpack reminder given a reminder id. The content takes fuzzy
+date/times like "+30 Do foo and bar" to set the reminder for 30 minutes
+from now. Optionally, specify a date in a relatively parseable date format
+and use the remind_at parameter instead.
+Returns a Perl data structure unless the C<xml> parameter is true, in which
+case it returns the raw XML as returned by the Backpack server.
+
+=cut
+
+sub update_reminder {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No reminder id' unless $params{id};
+  unless (exists $params{content} && exists $params{remind_at}) {
+    my $reminders = $self->upcoming_reminders();
+    $params{content} ||= 
+      $reminders->{reminders}{reminder}{$params{id}}{content};
+    $params{remind_at} ||= 
+      $reminders->{reminders}{reminder}{$params{id}}{remind_at};
+  }
+  
+  my $req_data = $data{update_reminder};
+  my $url      = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+
+  my $req = HTTP::Request->new('POST', $url);
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $response = $bp->destroy_reminder( id => $reminder_id,  [xml => 1]);
+
+Destroys a Backpack reminder given a reminder id. 
+Returns a Perl data structure unless the C<xml> parameter is true, in which
+case it returns the raw XML as returned by the Backpack server.
+
+=cut
+
+sub destroy_reminder {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No reminder id' unless $params{id};
+
+  my $req_data = $data{destroy_reminder};
+  my $url      = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+
+  my $req = HTTP::Request->new('POST', $url);
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $emails = $bp->list_all_emails(page_id => $page_id, [xml => 1]);
+
+Get a list of all of your Backpack email items for a page. Returns a Perl
+data structure unless the C<xml> parameter is true, in which case it returns
+the raw XML as returned by the Backpack server.
+
+=cut
+
+sub list_all_emails {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No id' unless $params{page_id};
+  
+  my $req_data = $data{list_all_emails};
+  my $url      = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+
+  my $req = HTTP::Request->new('POST', $url);
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $email = $bp->show_email(page_id => $page_id, id => $reminder_id, 
+                                [xml => 1]);
+
+Returns a Backpack email item given a page id and an email id. 
+Returns a Perl data structure unless the C<xml> parameter is true, in which
+case it returns the raw XML as returned by the Backpack server.
+
+=cut
+
+sub show_email {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No page id' unless $params{page_id};
+  croak 'No email id' unless $params{id};
+
+  my $req_data = $data{show_email};
+  my $url      = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+
+  my $req = HTTP::Request->new('POST', $url);
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $response = $bp->destroy_email(page_id => $page_id, id => $reminder_id, 
+                                      [xml => 1]);
+
+Destroys a Backpack email item for a page given a page id and an email id. 
+Returns a Perl data structure unless the C<xml> parameter is true, in which
+case it returns the raw XML as returned by the Backpack server.
+
+=cut
+
+sub destroy_email {
+  my $self = shift;
+  my %params = @_;
+
+  croak 'No page id' unless $params{page_id};
+  croak 'No email id' unless $params{id};
+
+  my $req_data = $data{destroy_email};
+  my $url      = $self->{base_url} . $self->_expand($req_data->{url}, %params);
+
+  my $req = HTTP::Request->new('POST', $url);
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
+=head2 $exported_bp = $bp->export([xml => 1]);
+
+Exports an account's entire Backpack. Returns a Perl data structure
+unless the C<xml> parameter is true, in which case it returns the raw
+XML as returned by the Backpack server.
+
+=cut
+
+sub export {
+  my $self = shift;
+  my %params = @_;
+
+  my $req_data = $data{export};
+  my $url = $self->{base_url} . $req_data->{url};
+
+  my $req = HTTP::Request->new('POST', $url);
+  $req->content($self->_expand($req_data->{req}, %params));
+
+  return $self->_call(%params, req => $req);
+}
+
 
 sub _call {
   my $self = shift;
@@ -373,10 +1252,6 @@ Improve documentation (I know, it's shameful)
 
 =item *
 
-Implement the rest of the API
-
-=item *
-
 More tests
 
 =back
@@ -386,6 +1261,8 @@ More tests
 Dave Cross E<lt>dave@dave@dave.org.ukE<gt>
 
 Please feel free to email me to tell me how you are using the module.
+
+Lots of stuff implemented by neshura when I was being too tardy!
 
 =head1 BUGS
 
