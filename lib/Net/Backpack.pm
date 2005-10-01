@@ -1,4 +1,4 @@
-# $Id: Backpack.pm,v 1.7 2005/07/31 16:00:48 dave Exp $
+# $Id: Backpack.pm,v 1.8 2005/10/01 17:38:42 dave Exp $
 
 =head1 NAME
 
@@ -81,7 +81,7 @@ use LWP::UserAgent;
 use HTTP::Request;
 use XML::Simple;
 
-our $VERSION = sprintf "%d.%02d", '$Revision: 1.7 $ ' =~ /(\d+)\.(\d+)/;
+our $VERSION = sprintf "%d.%02d", '$Revision: 1.8 $ ' =~ /(\d+)\.(\d+)/;
 
 my %data = (
 	    'list_all_pages' =>
@@ -456,7 +456,7 @@ sub show_page {
   return $self->_call(%params, req => $req);
 }
 
-=head2 $rc = $bp->delete_page(id => $id, [xml => 1]);
+=head2 $rc = $bp->destroy_page(id => $id, [xml => 1]);
 
 Delete the Backpack page with the given id. Returns a Perl data structure
 unless the C<xml> parameter is true, in which case it returns the raw XML
@@ -599,8 +599,8 @@ sub unlink_page {
   return $self->_call(%params, req => $req);
 }
 
-=head2 $rc = $bp->share_page_with_people(id => $id, people => \@people,
-                                         [ xml => 1 ]);
+=head2 $rc = $bp->share_page(id => $id, people => \@people,
+                             [ xml => 1 ]);
 
 Share a given Backpack page with a list of other people. The parameter
 'people' is a list of email addresses of the people you wish to share the
