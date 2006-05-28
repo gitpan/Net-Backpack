@@ -1,4 +1,4 @@
-# $Id: Backpack.pm,v 1.8 2005/10/01 17:38:42 dave Exp $
+# $Id: Backpack.pm,v 1.11 2006/05/28 17:47:57 dave Exp $
 
 =head1 NAME
 
@@ -68,6 +68,16 @@ to manipulate your Backpage pages. The values returned from Backpack
 are converted to Perl data structures before being handed back to
 you (although it is also possible to get back the raw XML).
 
+=head1 Important Note
+
+Net::Backpack uses XML::Simple to parse the data that is returned from
+Backpack. From version 1.10 of Net::Backpack has changed. By default we
+now pass the parameter C<ForceArray =E<gt> 1> to XML::Simple. This will
+change the Perl data structure returned by most calls.
+
+To get the old behaviour back, you can pass the parameter C<forcearray
+=E<gt> 0> to the C<new> function.
+
 =cut
 
 package Net::Backpack;
@@ -81,7 +91,7 @@ use LWP::UserAgent;
 use HTTP::Request;
 use XML::Simple;
 
-our $VERSION = sprintf "%d.%02d", '$Revision: 1.8 $ ' =~ /(\d+)\.(\d+)/;
+our $VERSION = sprintf "%d.%02d", '$Revision: 1.11 $ ' =~ /(\d+)\.(\d+)/;
 
 my %data = (
 	    'list_all_pages' =>
@@ -357,13 +367,17 @@ my %data = (
 
 =head1 METHODS
 
-=head2 $bp = Net::Backpack->new(token => $token, user => $user);
+=head2 $bp = Net::Backpack->new(token => $token, user => $user, [forcearray => 0);
 
 Creates a new Net::Backpack object. All communication with the
 Backpack server is made through this object.
 
 Takes two mandatory arguments, your Backpack API token and your
 Backpack username. Returns the new Net:Backpack object.
+
+There is also an optional third parameter, forcearray. This controls the
+value of the C<ForceArray> parameter that is used by C<XML::Simple>. The 
+default value is 1.
 
 =cut
 
@@ -376,6 +390,8 @@ sub new {
     || croak "No Backpack API token passed Net::Backpack::new\n";
   $self->{user}  = $params{user}
     || croak "No Backpack API user passed Net::Backpack::new\n";
+
+  $self->{forcearray} = $params{forcearray} || 1;
 
   $self->{ua} = LWP::UserAgent->new;
   $self->{ua}->env_proxy;
@@ -1226,7 +1242,7 @@ sub _call {
   if ($params{xml}) {
     return $xml;
   } else {
-    my $data = XMLin($xml);
+    my $data = XMLin($xml, ForceArray => $self->{forcearray});
     return $data;
   }
 }

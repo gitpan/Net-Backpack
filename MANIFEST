@@ -8,3 +8,4 @@ t/pod_coverage.t
 lib/Net/Backpack.pm
 META.yml                                 Module meta-data (added by MakeMaker)
 Makefile.PL
+SIGNATURE    Added here by Module::Build
