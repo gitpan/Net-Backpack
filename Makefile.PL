@@ -2,16 +2,16 @@
 use ExtUtils::MakeMaker;
 WriteMakefile
 (
-          'PL_FILES' => {},
-          'INSTALLDIRS' => 'site',
           'NAME' => 'Net::Backpack',
-          'EXE_FILES' => [],
           'VERSION_FROM' => 'lib/Net/Backpack.pm',
           'PREREQ_PM' => {
-                           'Test::More' => 0,
-                           'LWP::UserAgent' => 0,
-                           'XML::Simple' => 0,
-                           'HTTP::Request' => 0
-                         }
+                           'HTTP::Request' => '0',
+                           'LWP::UserAgent' => '0',
+                           'Test::More' => '0',
+                           'XML::Simple' => '0'
+                         },
+          'INSTALLDIRS' => 'site',
+          'EXE_FILES' => [],
+          'PL_FILES' => {}
         )
 ;
