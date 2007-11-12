@@ -1,6 +1,6 @@
 ---
 name: Net-Backpack
-version: 1.12
+version: 1.13
 author:
   - Dave Cross E<lt>dave@dave@dave.org.ukE<gt>
 abstract: Perl extension for interfacing with Backpack
@@ -17,8 +17,8 @@ build_requires:
 provides:
   Net::Backpack:
     file: lib/Net/Backpack.pm
-    version: 1.12
-generated_by: Module::Build version 0.2805
+    version: 1.13
+generated_by: Module::Build version 0.2807
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html
   version: 1.2
