@@ -1,4 +1,4 @@
-# $Id: Backpack.pm 26 2007-11-12 19:20:27Z dave $
+# $Id: Backpack.pm 29 2008-07-13 10:35:47Z dave $
 
 =head1 NAME
 
@@ -92,7 +92,7 @@ use LWP::UserAgent;
 use HTTP::Request;
 use XML::Simple;
 
-our $VERSION = '1.13';
+our $VERSION = '1.14';
 
 my %data = (
 	    'list_all_pages' =>
@@ -1480,7 +1480,7 @@ More tests
 
 =head1 AUTHOR
 
-Dave Cross E<lt>dave@dave@dave.org.ukE<gt>
+Dave Cross E<lt>dave@dave@mag-sol.comE<gt>
 
 Please feel free to email me to tell me how you are using the module.
 
@@ -1490,7 +1490,7 @@ Lots of stuff implemented by neshura when I was being too tardy!
 
 Please report bugs by email to E<lt>bug-Net-Backpack@rt.cpan.orgE<gt>.
 
-=head1 COPYRIGHT
+=head1 LICENSE AND COPYRIGHT
 
 Copyright (c) 2005, Dave Cross.  All Rights Reserved.
 

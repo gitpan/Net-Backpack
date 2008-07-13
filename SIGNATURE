@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.44.
+signed via the Module::Signature module, version 0.55.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -14,21 +14,21 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 34cea612f4782d0030fc5cdac47e4ec49da71d26 Build.PL
-SHA1 47d81b3d643c03b42feb5f54f19a67f4c24c6ca2 Changes
+SHA1 0c24789606917ddc596982ce8613146366902197 Build.PL
+SHA1 13d451533d3fa99db8cb2829e836b98bb9961357 Changes
 SHA1 d7993ad07ebf4a265240dbcd872e7261e1129f90 MANIFEST
 SHA1 4350f5e6ef3994ce83eff72acc83a1167e758302 MANIFEST.SKIP
-SHA1 3b459d983944f71e0d5b02573f640e236c8fcba0 META.yml
-SHA1 fff5fc761ac5f8458c92556eb6d324cdf02ef308 Makefile.PL
+SHA1 65b853030821bd01d9362673194e73e9a5f89bc0 META.yml
+SHA1 6618831a5baa3edb74aee302a30bf861d285faf2 Makefile.PL
 SHA1 6517d1b788c4bcd0d105cec2cd0466c5712c16c7 README
-SHA1 7867918a62c1e3633e9bd0341a1b1490fe058b1d lib/Net/Backpack.pm
-SHA1 204e35aebfe0d560a094c84f0c8f4633e53ca0ad t/Net-Backpack.t
+SHA1 99e0bf415ffc918a42df28607411639001f44b71 lib/Net/Backpack.pm
+SHA1 8c018f78c50def173f779b523d484840ef650778 t/Net-Backpack.t
 SHA1 e9c6a5881fc60173fbc8d479c1afd2ce3b43bef1 t/pod.t
 SHA1 de1b8a6f043bb49463103b0fc02a65276f790a68 t/pod_coverage.t
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.7 (GNU/Linux)
+Version: GnuPG v1.4.9 (GNU/Linux)
 
-iD8DBQFHOKeehlYrNpFq+8ERAh1+AJsH0xafjvJ7LAlaWlxj8D2AQxsUuwCeMY2E
-13k/2fy2Z+teLHoxS7HYzOg=
-=M/xH
+iEYEARECAAYFAkh52s8ACgkQhlYrNpFq+8GQ+gCfSu72iR173p40mUVRMNA19QON
+YAwAnRbI04SCemPFaroNQPOblstC0GaX
+=U2me
 -----END PGP SIGNATURE-----
